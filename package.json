@@ -4,7 +4,37 @@
   "description": "CLI commands to sharpen you vision ;)",
   "main": "bin/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "prettier --cache --plugin-search-dir . --check . && eslint .",
+    "format": "prettier --cache --plugin-search-dir . --write .",
+    "prebuild": "wireit",
+    "build": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "rollup -c rollup.config.js",
+      "dependencies": [
+        "prebuild"
+      ],
+      "clean": "if-file-deleted",
+      "files": [
+        "dist/**/*.js"
+      ],
+      "output": [
+        "bin/index.js"
+      ]
+    },
+    "prebuild": {
+      "command": "tsc --build",
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist/**",
+        "tsconfig.tsbuildinfo"
+      ]
+    }
   },
   "bin": {
     "sharp": "./bin/index.js"
@@ -14,8 +44,20 @@
   "type": "module",
   "license": "ISC",
   "dependencies": {
+    "@commander-js/extra-typings": "github:commander-js/extra-typings",
     "colorette": "^2.0.20",
     "commander": "^11.1.0",
+    "figlet": "^1.6.0",
     "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/figlet": "^1.5.7",
+    "@types/node": "^20.8.7",
+    "prettier": "^3.0.3",
+    "rollup": "^4.1.4",
+    "typescript": "^5.2.2",
+    "wireit": "^0.14.0"
   }
 }
