@@ -1,53 +1,57 @@
-#! /usr/bin/env node
-import { bgGreen, bgGreenBright, bold, green } from "colorette";
-import { program } from "commander";
-import _sharp from "sharp";
+import { Argument, Option, Command, program } from '@commander-js/extra-typings';
+import { green, bgGreen, bgGreenBright } from 'colorette';
+import figlet from 'figlet';
+import sharp from 'sharp';
 
-// const sizes = [100, 200, 400, 800, 1080];
+function createDescription(description) {
+    return green(description);
+}
+function extractFileName(filePath) {
+    const fileNameWithExtension = filePath.split("/").pop();
+    return fileNameWithExtension?.split(".")[0];
+}
+const inputArg = new Argument("source", createDescription("Input file, can be path or an url")).argRequired();
+const outputArg = new Argument("output", createDescription("Output file name, will be same as input file if no output given")).argOptional();
 
+function format({ input, output, format, options }) {
+    const fileFormat = format ?? "webp";
+    const fileName = output ?? `./${extractFileName(input)}.${fileFormat}`;
+    const _sharp = sharp(input);
+    _sharp.toFormat(fileFormat, options);
+    _sharp.toFile(`./${fileName}.${fileFormat}`);
+    console.log(`${bgGreen(' ') + bgGreenBright(' ')}\t${fileName} created`);
+}
+
+const formatOption = new Option("-f, --format <type>", createDescription("Format to be used on output"));
+const formatCommand = new Command("format")
+    .description(createDescription("Force output to a given format."))
+    .addArgument(inputArg)
+    .addArgument(outputArg)
+    .addOption(formatOption)
+    .action((input, output, options) => {
+    format({
+        input,
+        output,
+        options: options,
+    });
+});
+
+const resizeOption = new Option("-f, --format <type>", createDescription("Format to be used on output"));
+const resizeCommand = new Command("resize")
+    .description(createDescription("Force output to a given format."))
+    .addArgument(inputArg)
+    .addArgument(outputArg)
+    .addOption(resizeOption)
+    .action((input, output, options) => {
+    console.log(input);
+    console.log(output);
+    console.log(options);
+});
+
+console.log(`\n${green(figlet.textSync("Sharpen", { font: "3D-ASCII" }))}\n`);
 program
-    .name(`${bgGreenBright(' ') + bgGreen(' ')}${bold(bgGreen("sharp "))}`)
+    .name(`sharpen`)
     .description("CLI commands to sharpen you vision ;)")
     .version("0.0.1");
-
-program
-    .command(`resize`)
-    .alias("resise")
-    .description(green("Resize image to width, height or width x height"))
-    .argument("source", green("Source file path"))
-    .argument("[desination]", )
-    .option('-w, --width <number>', 'New width', '1920')
-    .option('-h, --height <number>', 'New height', '1080');
-
-console.log(program.args);
+program.addCommand(formatCommand).addCommand(resizeCommand);
 program.parse();
-
-// /** @type {import('sharp').Sharp} */
-// let sharp;
-
-// if (input.startsWith('http')) {
-//     const res = await fetch(input);
-//     const arrayBuffer = await res.arrayBuffer()
-//     sharp = _sharp(arrayBuffer).toFormat('webp', { quality: 80 });
-// } else {
-//     sharp = _sharp(input).toFormat('webp', { quality: 80 });
-// }
-
-// await Promise.all(sizes.map(async (size) => {
-//     try {
-//         resizeImage(size)
-//     } catch {/* empty */}
-// }))
-
-// /**
-//  * The function `resizeImage` resizes an image to a specified height and saves it as a webp file.
-//  * @param {number} size - The `size` parameter in the `resizeImage` function represents the desired height of
-//  * the resized image.
-//  */
-// function resizeImage(size) {
-//     // const sharp = _sharp(input).toFormat('webp');
-//     const outputName = `./${output}_${size}.webp`
-//     const resized = sharp.resize({ height: size });
-//     resized.toFile(`${outputName}`);
-//     console.log(`Resized image >> ${bold(green(outputName))}`);
-// }
