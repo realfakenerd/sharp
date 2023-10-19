@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "incremental": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "$utils": ["src/utils"]
+    }
+  },
+  "include": ["src"]
+}
