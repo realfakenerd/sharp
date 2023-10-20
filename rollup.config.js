@@ -1,4 +1,5 @@
 import alias from '@rollup/plugin-alias';
+import terser from '@rollup/plugin-terser';
 
 /** @type {import('rollup').RollupOptions} */
 export default {
@@ -6,20 +7,19 @@ export default {
 	plugins: [
 		alias({
 			entries: [{ find: '$utils', replacement: 'dist/utils/index.js' }]
+		}),
+		terser({
+			compress: {
+				ecma: 2020,
+				passes: 3,
+				module: true
+			}
 		})
-		// terser({
-		//   compress: {
-		//     ecma: 2020,
-		//     passes: 3,
-		//     module: true,
-		//   },
-		// }),
 	],
 	output: {
 		inlineDynamicImports: true,
 		file: 'bin/index.js',
 		format: 'es'
 	},
-	external: ['colorette', 'nanospinner', 'figlet', 'sharp', '@commander-js/extra-typings'],
-	cache: true
+	external: ['colorette', 'nanospinner', 'figlet', 'sharp', '@commander-js/extra-typings']
 };

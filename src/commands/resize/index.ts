@@ -24,7 +24,7 @@ const resizeCommand = new Command('resize')
 	.addOption(width)
 	.addOption(height)
 	.addOption(multi)
-	.action((input, output, { height, multi, width }) => {
+	.action(async (input, output, { height, multi, width }) => {
 		const size = {
 			width: width ? parseInt(width as string) : undefined,
 			height: height ? parseInt(height as string) : undefined
@@ -33,14 +33,14 @@ const resizeCommand = new Command('resize')
 		if (multi && typeof multi === 'string') {
 			const sizes = multi.split(',');
 			Promise.all(
-				sizes.map((size) => {
-					resize({ input, output, size: { height: parseInt(size) } });
+				sizes.map(async (size) => {
+					await resize({ input, output, size: { height: parseInt(size) } });
 				})
 			);
 			return;
 		}
 
-		return resize({ input, output, size });
+		return await resize({ input, output, size });
 	});
 
 export default resizeCommand;

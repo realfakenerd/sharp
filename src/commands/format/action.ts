@@ -1,10 +1,10 @@
-import { extractFileName, formatBytes, spinner } from '$utils';
+import { errorSpinner, extractFileName, formatBytes, start, successSpinner } from '$utils';
 import { bold, redBright } from 'colorette';
 import sharp from 'sharp';
 import { FormatOptions } from 'src/lib';
 
 async function format({ input, output, format, options }: FormatOptions) {
-	spinner.start();
+	start();
 	try {
 		const fileFormat = format;
 		const fileName = output ?? `./${extractFileName(input).filename}.${fileFormat}`;
@@ -12,15 +12,9 @@ async function format({ input, output, format, options }: FormatOptions) {
 		_sharp.toFormat(fileFormat, options);
 		const formated = await _sharp.toFile(`./${fileName}`);
 
-		spinner.success({
-			text: `${bold(input)} changed to ${bold(fileName)} ${formatBytes(formated.size)}`,
-			mark: '✅'
-		});
+		successSpinner(`${bold(input)} changed to ${bold(fileName)} ${formatBytes(formated.size)}`);
 	} catch (error) {
-		spinner.error({
-			text: redBright(error as string),
-			mark: '❌'
-		});
+		errorSpinner(redBright(error as string));
 	}
 }
 

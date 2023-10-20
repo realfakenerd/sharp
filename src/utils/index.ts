@@ -1,6 +1,5 @@
 import { Argument } from '@commander-js/extra-typings';
 import { green } from 'colorette';
-import { createSpinner } from 'nanospinner';
 
 function createDescription(description: string) {
 	return green(description);
@@ -13,12 +12,6 @@ function extractFileName(filePath: string) {
 		extension: fileNameWithExtension?.split('.')[1]
 	};
 }
-
-const spinner = createSpinner('running...', {
-	color: 'green',
-	interval: 100,
-	stream: process.stdout
-});
 
 function formatBytes(bytes: number, decimals = 2) {
 	if (isNaN(bytes) || !Number.isFinite(bytes)) return '0 Bytes';
@@ -47,4 +40,6 @@ const outputArg = new Argument(
 	createDescription('Output file name, will be same as input file if no output given')
 ).argOptional();
 
-export { createDescription, extractFileName, formatBytes, inputArg, outputArg, spinner };
+export * from './spinner';
+export { createDescription, extractFileName, formatBytes, inputArg, outputArg };
+

@@ -12,8 +12,8 @@ const formatCommand = new Command('format')
 	.addArgument(inputArg)
 	.addArgument(outputArg)
 	.addOption(formatOption)
-	.action((input, output, options) => {
-		format({
+	.action(async (input, output, options) => {
+		await format({
 			input,
 			output,
 			format: options.format as unknown as keyof FormatEnum
