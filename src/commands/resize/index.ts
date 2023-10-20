@@ -1,20 +1,46 @@
-import { createDescription, inputArg, outputArg } from "$utils";
-import { Command, Option } from "@commander-js/extra-typings";
-const resizeOption = new Option(
-  "-f, --format <type>",
-  createDescription("Format to be used on output")
+import { createDescription, inputArg, outputArg } from '$utils';
+import { Command, Option } from '@commander-js/extra-typings';
+import resize from './action';
+
+const width = new Option(
+	'-w, --width [size]',
+	createDescription('How many pixels wide the resultant image should be.')
 );
 
-const resizeCommand = new Command("resize")
-  .description(createDescription("Force output to a given format."))
-  .addArgument(inputArg)
-  .addArgument(outputArg)
-  .addOption(resizeOption)
-  .action((input, output, options) => {
-    console.log(input);
-    console.log(output);
-    console.log(options);
-    
-  });
+const height = new Option(
+	'-h, --height [size]',
+	createDescription('How many pixels high the resultant image should be.')
+);
+
+const multi = new Option(
+	'-m, --multi [sizes]',
+	createDescription('If present, output many sizes at once.')
+);
+
+const resizeCommand = new Command('resize')
+	.description(createDescription('Resize image to width, height or width x height.'))
+	.addArgument(inputArg)
+	.addArgument(outputArg)
+	.addOption(width)
+	.addOption(height)
+	.addOption(multi)
+	.action((input, output, { height, multi, width }) => {
+		const size = {
+			width: width ? parseInt(width as string) : undefined,
+			height: height ? parseInt(height as string) : undefined
+		};
+
+		if (multi && typeof multi === 'string') {
+			const sizes = multi.split(',');
+			Promise.all(
+				sizes.map((size) => {
+					resize({ input, output, size: { height: parseInt(size) } });
+				})
+			);
+			return;
+		}
+
+		return resize({ input, output, size });
+	});
 
 export default resizeCommand;
