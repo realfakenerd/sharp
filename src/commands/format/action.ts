@@ -1,42 +1,27 @@
-import { extractFileName } from "$utils";
-import { bgGreen, bgGreenBright } from "colorette";
-import sharp, {
-  AvifOptions,
-  FormatEnum,
-  GifOptions,
-  HeifOptions,
-  Jp2Options,
-  JpegOptions,
-  JxlOptions,
-  OutputOptions,
-  PngOptions,
-  TiffOptions,
-  WebpOptions,
-} from "sharp";
+import { extractFileName, formatBytes, spinner } from '$utils';
+import { bold, redBright } from 'colorette';
+import sharp from 'sharp';
+import { FormatOptions } from 'src/lib';
 
-interface FormatOptions {
-  input: string;
-  output?: string;
-  format?: keyof FormatEnum;
-  options?:
-    | OutputOptions
-    | JpegOptions
-    | PngOptions
-    | WebpOptions
-    | AvifOptions
-    | HeifOptions
-    | JxlOptions
-    | GifOptions
-    | Jp2Options
-    | TiffOptions;
-}
-function format({ input, output, format, options }: FormatOptions) {
-  const fileFormat = format ?? "webp";
-  const fileName = output ?? `./${extractFileName(input)}.${fileFormat}`;
-  const _sharp = sharp(input);
-  _sharp.toFormat(fileFormat, options);
-  _sharp.toFile(`./${fileName}.${fileFormat}`);
-  console.log(`${bgGreen(' ')+bgGreenBright(' ')}\t${fileName} created`);
+async function format({ input, output, format, options }: FormatOptions) {
+	spinner.start();
+	try {
+		const fileFormat = format;
+		const fileName = output ?? `./${extractFileName(input).filename}.${fileFormat}`;
+		const _sharp = sharp(input);
+		_sharp.toFormat(fileFormat, options);
+		const formated = await _sharp.toFile(`./${fileName}`);
+
+		spinner.success({
+			text: `${bold(input)} changed to ${bold(fileName)} ${formatBytes(formated.size)}`,
+			mark: '✅'
+		});
+	} catch (error) {
+		spinner.error({
+			text: redBright(error as string),
+			mark: '❌'
+		});
+	}
 }
 
 export default format;
