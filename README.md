@@ -46,30 +46,23 @@ sharpen format -f webp ./input.jpg ./output.webp
 ```shell
 sharpen resize -m200,400,600 ./input.jpg
 ```
-Examples:
+This will create three images, `output_200.jpg`, `output_400.jpg`, and `output_600.jpg`, each with a different size.
 
-Sharpen an image and save the output as output.jpg:
-sharpen sharpen ./input.jpg ./output.jpg
-Resize an image to 800 pixels high and save the output as output.jpg:
-sharpen resize -h 800 ./input.jpg ./output.jpg
-Convert an image to WebP format and save the output as output.webp:
-sharpen format -f webp ./input.jpg ./output.webp
-Output an image to multiple sizes at once:
-shahis will create three images: output_200.jpg, output_400.jpg, and output_600.jpg, each with a different size.
-
-Troubleshooting:
+## Troubleshooting:
 
 If you are having trouble using Sharpen, please check the following:
 
-Make sure that you have installed the Sharpen CLI tool correctly.
-Make sure that you are running the sharpen command from the correct directory.
-Make sure that you are using the correct syntax for the Sharpen command.
-Make sure that the input image file exists.
+- Make sure that you have installed the Sharpen CLI tool correctly.
+- Make sure that you are running the sharpen command from the correct directory.
+- Make sure that you are using the correct syntax for the Sharpen command.
+- Make sure that the input image file exists.
+
 If you are still having trouble, please feel free to open an issue on the Sharpen GitHub repository.
 
-Additional notes:
+## Additional notes:
 
-Sharpen can also be used to crop images, adjust brightness and contrast, and apply other image processing effects.
-Sharpen can be used to read and write images from and to streams. This can be useful for processing images from websites or other sources.
-Sharpen is a free and open source project. You can contribute to Sharpen by filing bug reports, submitting pull requests, or donating to the project.
+- Sharpen can also be used to crop images, adjust brightness and contrast, and apply other image processing effects.
+- Sharpen can be used to read and write images from and to streams. This can be useful for processing images from websites or other sources.
+- Sharpen is a free and open source project. You can contribute to Sharpen by filing bug reports, submitting pull requests, or donating to the project.
+  
 I hope this information is helpful.
