@@ -1,55 +1,75 @@
+# Sharpen
+### Sharpen your vision
 
-<div align="center">
-  <h1>Sharpen</h1>
-  <h3>Sharp CLI Tool to sharpen your vision</h3>
-</div>
+Sharpen is a command-line tool for sharpening and manipulating images. It is easy to use, fast, and supports multiple output formats.
 
-Sharpen is a CLI tool for the sharp node package.
-It makes processing images directly on your terminal simple.
+**Benefits of using Sharpen**:
 
-Wanna resize your image file? Do it in seconds with 
-sharpen, or even better, you can output multiple sizes at once.
-It uses the same api as sharp, but with a little more.
+- Sharpen is easy to use. Simply run the sharpen command followed by the desired options.
+- Sharpen is fast. It uses the sharp node package to process images quickly and efficiently.
+- Sharpen supports multiple output formats, including JPEG, PNG, WebP, and AVIF.
+- Sharpen can output to multiple sizes at once. This can be useful for creating thumbnail images or different sizes of images for different devices.
+- Sharpen can be used to automate image processing tasks. For example, you can write a script to sharpen all of the images in a directory.
 
-## Installing
+## Installation
+
+Getting started with Sharpen is a breeze. Whether you prefer npm, yarn, or pnpm, you can install it globally with ease:
 
 ```shell
-# of course it works with plain old npm and yarn
+# Using npm
+npm install -g sharpen
+
+# Using yarn
+yarn global add sharpen
+
+# Using pnpm
 pnpm add -g sharpen
 ```
 
-## Usage 
+## Usage:
 
-### format 
-
-You can force the output to the given format.
-```shell
-# sharp works as alias too
-sharpen format -f webp ./mushroom.avif ./mushroom.webp
+```shel
+sharpen sharpen ./input.jpg ./output.jpg
 ```
 
-Filename it's extracted from the input, so if no
-output is given, it will be the same as input
-with the chosen extension.
+## Resize image:
 ```shell
-
-sharpen format -f png ./mushroom.jpg
+sharpen resize -h 800 ./input.jpg ./output.jpg
 ```
-The output will be `./mushroom.png` for the command above.
-Can be used with `--format` too instead of `-f`.
 
-### resize
-
-You can resize the input to a new size
+## Convert image to different format:
 ```shell
-
-sharpen resize -h 800 ./mushroom.jpg
+sharpen format -f webp ./input.jpg ./output.webp
 ```
-With this command it creates a new image with 800 pixels
-high, if only one size is given, it maintains aspect ratio.
 
-Also, you can output to multiple sizes at once.
+## Output to multiple sizes at once:
 ```shell
-sharpen resize -m200,400,600 ./mushroom.jpg
+sharpen resize -m200,400,600 ./input.jpg
 ```
-This command will output 3 images with 200, 400 and 600 pixels high.
+Examples:
+
+Sharpen an image and save the output as output.jpg:
+sharpen sharpen ./input.jpg ./output.jpg
+Resize an image to 800 pixels high and save the output as output.jpg:
+sharpen resize -h 800 ./input.jpg ./output.jpg
+Convert an image to WebP format and save the output as output.webp:
+sharpen format -f webp ./input.jpg ./output.webp
+Output an image to multiple sizes at once:
+shahis will create three images: output_200.jpg, output_400.jpg, and output_600.jpg, each with a different size.
+
+Troubleshooting:
+
+If you are having trouble using Sharpen, please check the following:
+
+Make sure that you have installed the Sharpen CLI tool correctly.
+Make sure that you are running the sharpen command from the correct directory.
+Make sure that you are using the correct syntax for the Sharpen command.
+Make sure that the input image file exists.
+If you are still having trouble, please feel free to open an issue on the Sharpen GitHub repository.
+
+Additional notes:
+
+Sharpen can also be used to crop images, adjust brightness and contrast, and apply other image processing effects.
+Sharpen can be used to read and write images from and to streams. This can be useful for processing images from websites or other sources.
+Sharpen is a free and open source project. You can contribute to Sharpen by filing bug reports, submitting pull requests, or donating to the project.
+I hope this information is helpful.
