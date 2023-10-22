@@ -28,25 +28,36 @@ pnpm add -g sharpen
 
 ## Usage:
 
-```shel
-sharpen sharpen ./input.jpg ./output.jpg
-```
-
 ## Resize image:
+Sharpen gives you the ability to resize images to your desired dimensions:
 ```shell
-sharpen resize -h 800 ./input.jpg ./output.jpg
+sharpen resize -h 800 ./mushroom.jpg
 ```
+With this command, a new image will be created with a height of 800 pixels while maintaining the original aspect ratio.
 
 ## Convert image to different format:
+
+Sharpen empowers you to easily change the format of your images. You can specify the output format using the `-f` or `--format` option:
+
 ```shell
 sharpen format -f webp ./input.jpg ./output.webp
 ```
 
+The filename is automatically derived from the input file, and if no output is provided, it will have the same name as the input with the chosen extension.
+
+```shell
+sharpen format -f png ./mushroom.jpg
+```
+For this command, the output image will be named mushroom.png.
+
 ## Output to multiple sizes at once:
+You can also generate multiple resized images in one go:
 ```shell
 sharpen resize -m200,400,600 ./input.jpg
 ```
 This will create three images, `output_200.jpg`, `output_400.jpg`, and `output_600.jpg`, each with a different size.
+
+This command will produce three images with heights of 200, 400, and 600 pixels, respectively, all from the same input image.
 
 ## Troubleshooting:
 
