@@ -11,8 +11,9 @@ async function format({ input, output, format, options }: FormatOptions) {
 		const _sharp = sharp(input);
 		_sharp.toFormat(fileFormat, options);
 		const formated = await _sharp.toFile(`./${fileName}`);
-
 		successSpinner(`${bold(input)} changed to ${bold(fileName)} ${formatBytes(formated.size)}`);
+
+		return formated;
 	} catch (error) {
 		errorSpinner(redBright(error as string));
 	}
