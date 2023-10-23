@@ -4,6 +4,7 @@
 	"description": "CLI commands to sharpen you vision ;)",
 	"main": "bin/index.js",
 	"scripts": {
+		"test": "vitest",
 		"lint": "wireit",
 		"format": "wireit",
 		"prebuild": "wireit",
@@ -83,6 +84,8 @@
 		"prettier": "^3.0.3",
 		"rollup": "^4.1.4",
 		"typescript": "^5.2.2",
+		"vite": "^4.5.0",
+		"vitest": "^0.34.6",
 		"wireit": "^0.14.0"
 	}
 }
