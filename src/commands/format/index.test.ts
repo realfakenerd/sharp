@@ -1,5 +1,5 @@
 import { expect, describe, it, assertType } from 'vitest';
-import format from './action';
+import format from '../../actions/action';
 import { OutputInfo } from 'sharp';
 describe('Image Formatting', function () {
 	it('should format an image', async function () {
@@ -16,7 +16,7 @@ describe('Image Formatting', function () {
 		// Add more expections based on your specific requirements
 	});
 
-	it('should handle errors when formatting an image', async function () {
+	it('should handle errors when formatting an image', async () => {
 		const input = './nonexistentformat.jpg';
 		const output = 'output.jpg';
 		const extension = 'jpeg';

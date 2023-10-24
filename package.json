@@ -3,6 +3,17 @@
 	"version": "0.0.1",
 	"description": "CLI commands to sharpen you vision ;)",
 	"main": "bin/index.js",
+	"contributors": [
+		{
+			"email": "realfakenerd@gmail.com",
+			"name": "Lucas",
+			"url": "https://dev-lucasouverney.vercel.app"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/realfakenerd/sharpen"
+	},
 	"scripts": {
 		"test": "vitest",
 		"lint": "wireit",
@@ -31,7 +42,7 @@
 			"output": []
 		},
 		"build": {
-			"command": "rollup -c rollup.config.js",
+			"command": "rollup -c",
 			"dependencies": [
 				"prebuild"
 			],
@@ -57,7 +68,8 @@
 		}
 	},
 	"bin": {
-		"sharp": "./bin/index.js"
+		"sharp": "./bin/index.js",
+		"sharpen": "./bin/index.js"
 	},
 	"keywords": [],
 	"author": "",

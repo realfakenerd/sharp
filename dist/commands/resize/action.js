@@ -10,6 +10,7 @@ async function resize({ input, output, size }) {
         _sharp.resize(size);
         const resized = await _sharp.toFile(output ?? outputfileName);
         successSpinner(green(`${bold(outputfileName)} resized to ${resized.width}x${resized.height}`));
+        return resized;
     }
     catch (error) {
         errorSpinner(redBright(error));

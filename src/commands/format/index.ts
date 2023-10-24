@@ -1,6 +1,6 @@
 import { createDescription, inputArg, outputArg } from '$utils';
 import { Command, Option } from '@commander-js/extra-typings';
-import format from './action';
+import format from '../../actions/action';
 import { FormatEnum } from 'sharp';
 const formatOption = new Option(
 	'-f, --format <type>',

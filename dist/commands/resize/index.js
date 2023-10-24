@@ -23,6 +23,6 @@ const resizeCommand = new Command('resize')
         }));
         return;
     }
-    return await resize({ input, output, size });
+    await resize({ input, output, size });
 });
 export default resizeCommand;

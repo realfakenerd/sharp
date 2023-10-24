@@ -53,6 +53,7 @@ async function format({ input, output, format, options }) {
 		_sharp.toFormat(fileFormat, options);
 		const formated = await _sharp.toFile(`./${fileName}`);
 		successSpinner(`${bold(input)} changed to ${bold(fileName)} ${formatBytes(formated.size)}`);
+		return formated;
 	} catch (error) {
 		errorSpinner(redBright(error));
 	}
@@ -84,6 +85,7 @@ async function resize({ input, output, size }) {
 		_sharp.resize(size);
 		const resized = await _sharp.toFile(output ?? outputfileName);
 		successSpinner(green(`${bold(outputfileName)} resized to ${resized.width}x${resized.height}`));
+		return resized;
 	} catch (error) {
 		errorSpinner(redBright(error));
 	}
@@ -122,7 +124,7 @@ const resizeCommand = new Command('resize')
 			);
 			return;
 		}
-		return await resize({ input, output, size });
+		await resize({ input, output, size });
 	});
 
 (async () => {

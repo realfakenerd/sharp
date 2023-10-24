@@ -6,7 +6,7 @@ export default {
 	plugins: [
 		alias({
 			entries: [{ find: '$utils', replacement: 'dist/utils/index.js' }]
-		}),
+		})
 		// terser({
 		// 	compress: {
 		// 		ecma: 2020,
@@ -17,7 +17,7 @@ export default {
 	],
 	output: {
 		inlineDynamicImports: true,
-		file: 'bin/index.js',
+		dir: 'bin',
 		format: 'es'
 	},
 	external: ['colorette', 'nanospinner', 'figlet', 'sharp', '@commander-js/extra-typings']
